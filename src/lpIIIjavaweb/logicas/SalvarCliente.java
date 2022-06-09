@@ -1,5 +1,7 @@
 package lpIIIjavaweb.logicas;
 
+import java.time.LocalDate;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,7 +22,14 @@ public class SalvarCliente implements Logica {
 		int cidade_id = Integer.parseInt(request.getParameter("cidade_id"));
 		CidadeDao cidadeDao = new CidadeDao();
 		Cidade cidade = cidadeDao.get(cidade_id);
-		Cliente cliente = new Cliente(id, nome, email, fone, endereco, cidade);
+		
+		LocalDate data_aniversario = null;
+		if (request.getParameter("data_aniversario") != null) {
+  		  data_aniversario = LocalDate.parse(request.getParameter("data_aniversario"));
+		}  
+		System.out.println("request: "+request.getParameter("data_aniversario"));	
+		System.out.println("data: "+data_aniversario);	
+		Cliente cliente = new Cliente(id, nome, email, fone, endereco, cidade, data_aniversario);
 		ClienteDao dao = new ClienteDao();
 		if (id==0) {
 		  dao.save(cliente);

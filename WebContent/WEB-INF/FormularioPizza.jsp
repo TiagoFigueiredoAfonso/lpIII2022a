@@ -14,6 +14,7 @@
 	    <label for="nome" class="form-label">Nome</label>
 	    <input type="text" class="form-control" id="nome" name="nome" value="${pizza.nome}">
 	  </div>
+	  
 	  <div class="mb-3">
 	    <label for="categoria_id" class="form-label">Categoria</label>
 		<select class="form-select" name="categoria_id" id="categoria_id">
@@ -21,7 +22,11 @@
 		    	<option ${categoria.id==pizza.categoria.id ? 'selected' : ''} value="${categoria.id}">${categoria.nome}</option>
 		    </c:forEach>
 		</select>
-	  </div>	  
+	  </div>
+	   <div class="mb-3">
+	    <label for="data" class="form-label">Data</label>
+	    <input type="date" class="form-control" id="data" name="data" value="${pizza.data}" >
+	  </div>	 
 	  <button type="submit" class="btn btn-primary">Salvar</button>
 	</form>
 		    

@@ -27,6 +27,10 @@
 	    <input type="text" class="form-control" id="endereco" name="endereco"  value="${cliente.endereco}">
 	  </div>
 	  <div class="mb-3">
+	    <label for="data_nascimento" class="form-label">Data Nascimento</label>
+	    <input type="date" class="form-control" id="data_aniversario" name="data_aniversario" value="${cliente.data_nascimento}" >
+	  </div>
+	  <div class="mb-3">
 	    <label for="cidade_id" class="form-label">Cidade</label>
 		<select class="form-select" name="cidade_id" id="cidade_id">
 		    <c:forEach items="${cidades}" var="cidade">

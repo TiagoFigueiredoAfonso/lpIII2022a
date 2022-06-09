@@ -11,7 +11,8 @@
 		    <tr>
 		      <th scope="col">#</th>
 		      <th scope="col">Nome</th>	
-		      <th scope="col">Categoria</th>	
+		      <th scope="col">Categoria</th>
+		      <th scope="col">Data</th>	
 		     		      
 		      <th></th>
 		    </tr>
@@ -23,6 +24,7 @@
 			      <td>${pizza.nome}</td>
 			      		      
 			      <td>${pizza.categoria.nome}</td>
+			      <td>${pizza.data}</td>
 			      <td>
 			      	<a href="sistema?logica=EditarPizza&id=${pizza.id}" class="btn btn-primary">+</a>
 			      	<a href="sistema?logica=ExcluirPizza&id=${pizza.id}" class="btn btn-danger">-</a>

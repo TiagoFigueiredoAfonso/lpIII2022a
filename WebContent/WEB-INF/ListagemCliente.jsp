@@ -14,6 +14,7 @@
 		      <th scope="col">Email</th>
 		      <th scope="col">Fone</th>
 		      <th scope="col">Endereço</th>
+		      <th scope="col">Data Nascimento</th>
 		      <th scope="col">Cidade</th>
 		      <th></th>
 		    </tr>
@@ -26,6 +27,7 @@
 			      <td>${cliente.email}</td>
 			      <td>${cliente.fone}</td>
 			      <td>${cliente.endereco}</td>
+			      <td>${cliente.data_nascimento}</td>
 			      <td>${cliente.cidade.descricao}-${cliente.cidade.uf}</td>
 			      <td>
 			      	<a href="sistema?logica=EditarCliente&id=${cliente.id}" class="btn btn-primary">+</a>

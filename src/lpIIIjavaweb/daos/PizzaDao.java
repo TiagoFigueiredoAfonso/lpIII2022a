@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +29,14 @@ public class PizzaDao implements Dao<Pizza>{
 				String nome = resultado.getString("nome");				
 				int categoria_id = resultado.getInt("categoria_id");
 				
-				String categoria_nome = resultado.getString("categoria_nome");
-				
+				String categoria_nome = resultado.getString("categoria_nome");				
 				Categoria categoria = new Categoria(categoria_id, categoria_nome);				
-				
-				pizza = new Pizza(id, nome, categoria);
+				LocalDate data =null;
+				if (resultado.getDate("data")!=null) {
+					data = LocalDate.parse(
+							resultado.getDate("data").toString());
+				}
+				pizza = new Pizza(id, nome, categoria, data);
 			}
 			resultado.close();			
 			sentenca.close();
@@ -61,7 +65,12 @@ public class PizzaDao implements Dao<Pizza>{
 				String categoria_nome = resultado.getString("categoria_nome");
 				
 				Categoria categoria = new Categoria(categoria_id, categoria_nome);
-				Pizza pizza = new Pizza(id, nome, categoria);
+				LocalDate data =null;
+				if (resultado.getDate("data")!=null) {
+					data = LocalDate.parse(
+							resultado.getDate("data").toString());
+				}
+				Pizza pizza = new Pizza(id, nome, categoria, data);
 				
 				lista.add(pizza);
 			}
@@ -78,11 +87,13 @@ public class PizzaDao implements Dao<Pizza>{
 	@Override
 	public void save(Pizza pizza) {
 		Connection bd = FactoryConnection.getConnection();
-		String sql = "INSERT INTO pizza (nome, categoria_id) VALUES (?, ?)";
+		String sql = "INSERT INTO pizza (nome, categoria_id, data) VALUES (?, ?, ?)";
 		try {
 			PreparedStatement sentenca = bd.prepareStatement(sql);
 			sentenca.setString(1, pizza.getNome());		
 			sentenca.setInt(2,  pizza.getCategoria().getId());
+			sentenca.setDate(3, java.sql.Date.valueOf(
+					pizza.getData()));
 			sentenca.execute();
 			sentenca.close();
 			bd.close();
@@ -96,12 +107,14 @@ public class PizzaDao implements Dao<Pizza>{
 	@Override
 	public void update(Pizza pizza) {
 		Connection bd = FactoryConnection.getConnection();
-		String sql = "UPDATE pizza SET nome=?, categoria_id=? WHERE id=?";
+		String sql = "UPDATE pizza SET nome=?, categoria_id=?, data=? WHERE id=?";
 		try {
 			PreparedStatement sentenca = bd.prepareStatement(sql);
 			sentenca.setString(1, pizza.getNome());			
 			sentenca.setInt(2, pizza.getCategoria().getId());
-			sentenca.setInt(3, pizza.getId());
+			sentenca.setDate(3, java.sql.Date.valueOf(
+					pizza.getData()));
+			sentenca.setInt(4, pizza.getId());
 			sentenca.execute();
 			sentenca.close();
 			bd.close();

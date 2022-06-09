@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,8 +36,14 @@ public class ClienteDao implements Dao<Cliente>{
 				String cidade_descricao = resultado.getString("cidade_descricao");
 				String cidade_uf = resultado.getString("cidade_uf");
 				Cidade cidade = new Cidade(cidade_id, cidade_descricao, cidade_uf);
+				LocalDate data_nascimento =null;
+				if (resultado.getDate("data_nascimento")!=null) {
+					data_nascimento = LocalDate.parse(
+							resultado.getDate("data_nascimento").toString());
+				}
 				
-				cliente = new Cliente(id, nome, email, fone, endereco, cidade);
+				cliente = new Cliente(id, nome, email, fone, endereco, cidade, data_nascimento);
+				
 			}
 			resultado.close();			
 			sentenca.close();
@@ -68,7 +75,12 @@ public class ClienteDao implements Dao<Cliente>{
 				String cidade_uf = resultado.getString("cidade_uf");
 				Cidade cidade = new Cidade(cidade_id, cidade_descricao, cidade_uf);
 				
-				Cliente cliente = new Cliente(id, nome, email, fone, endereco, cidade);
+				LocalDate data_nascimento = null; 
+				if (resultado.getDate("data_nascimento")!=null) {		
+  				  data_nascimento = LocalDate.parse(
+						resultado.getDate("data_nascimento").toString());
+				}
+				Cliente cliente = new Cliente(id, nome, email, fone, endereco, cidade, data_nascimento);
 				lista.add(cliente);
 			}
 			resultado.close();
@@ -84,7 +96,7 @@ public class ClienteDao implements Dao<Cliente>{
 	@Override
 	public void save(Cliente cliente) {
 		Connection bd = FactoryConnection.getConnection();
-		String sql = "INSERT INTO cliente (nome, email, fone, endereco, cidade_id) VALUES (?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO cliente (nome, email, fone, endereco, cidade_id, data_nascimento) VALUES (?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement sentenca = bd.prepareStatement(sql);
 			sentenca.setString(1, cliente.getNome());
@@ -92,6 +104,8 @@ public class ClienteDao implements Dao<Cliente>{
 			sentenca.setString(3, cliente.getFone());
 			sentenca.setString(4, cliente.getEndereco());
 			sentenca.setInt(5,  cliente.getCidade().getId());
+			sentenca.setDate(6, java.sql.Date.valueOf(
+					cliente.getData_nascimento()));
 			sentenca.execute();
 			sentenca.close();
 			bd.close();
@@ -104,7 +118,7 @@ public class ClienteDao implements Dao<Cliente>{
 	@Override
 	public void update(Cliente cliente) {
 		Connection bd = FactoryConnection.getConnection();
-		String sql = "UPDATE cliente SET nome=?, email=?, fone=?, endereco=?, cidade_id=? WHERE id=?";
+		String sql = "UPDATE cliente SET nome=?, email=?, fone=?, endereco=?, cidade_id=?, data_nascimento=? WHERE id=?";
 		try {
 			PreparedStatement sentenca = bd.prepareStatement(sql);
 			sentenca.setString(1, cliente.getNome());
@@ -112,7 +126,9 @@ public class ClienteDao implements Dao<Cliente>{
 			sentenca.setString(3, cliente.getFone());
 			sentenca.setString(4, cliente.getEndereco());
 			sentenca.setInt(5, cliente.getCidade().getId());
-			sentenca.setInt(6, cliente.getId());
+			sentenca.setDate(6, java.sql.Date.valueOf(
+					cliente.getData_nascimento()));
+			sentenca.setInt(7, cliente.getId());
 			sentenca.execute();
 			sentenca.close();
 			bd.close();

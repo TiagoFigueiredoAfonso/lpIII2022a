@@ -1,5 +1,7 @@
 package lpIIIjavaweb.logicas;
 
+import java.time.LocalDate;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,7 +19,15 @@ public class SalvarPizza implements Logica {
 		int categoria_id = Integer.parseInt(request.getParameter("categoria_id"));
 		CategoriaDao categoriaDao = new CategoriaDao();
 		Categoria categoria = categoriaDao.get(categoria_id);
-		Pizza pizza = new Pizza(id, nome, categoria);
+		
+		LocalDate data = null;
+		if (request.getParameter("data") != null) {
+  		  data = LocalDate.parse(request.getParameter("data"));
+		}  
+		System.out.println("request: "+request.getParameter("data"));	
+		System.out.println("data: "+data);	
+		
+		Pizza pizza = new Pizza(id, nome, categoria, data);
 		PizzaDao dao = new PizzaDao();
 		if (id==0) {
 		  dao.save(pizza);
