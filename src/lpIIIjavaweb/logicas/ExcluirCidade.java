@@ -1,5 +1,7 @@
 package lpIIIjavaweb.logicas;
 
+import java.sql.Connection;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,7 +12,8 @@ public class ExcluirCidade implements Logica {
 
 	@Override
 	public String executa(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		CidadeDao dao = new CidadeDao();
+		Connection conn = (Connection) request.getAttribute("conn");
+		CidadeDao dao = new CidadeDao(conn);
 		int id = Integer.parseInt(request.getParameter("id"));
 		Cidade cidade = new Cidade(id, "", "");
 		dao.delete(cidade);

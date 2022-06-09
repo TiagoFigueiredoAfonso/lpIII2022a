@@ -12,10 +12,15 @@ import lpIIIjavaweb.models.Cidade;
 import lpIIIjavaweb.models.Cliente;
 
 public class CidadeDao implements Dao<Cidade>{
+	private Connection bd = null;
+	
+	public CidadeDao(Connection bd) {
+		super();
+		this.bd = bd;
+	}
 
 	@Override
-	public Cidade get(int id) {
-		Connection bd = FactoryConnection.getConnection();
+	public Cidade get(int id) {		
 		String sql = "SELECT * FROM cidade WHERE id=?";
 		Cidade cidade = null;
 		try {
@@ -29,7 +34,7 @@ public class CidadeDao implements Dao<Cidade>{
 			}
 			resultado.close();			
 			sentenca.close();
-			bd.close();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -39,7 +44,7 @@ public class CidadeDao implements Dao<Cidade>{
 
 	@Override
 	public List<Cidade> getAll() {
-		Connection bd = FactoryConnection.getConnection();
+		
 		List<Cidade> lista = new ArrayList<Cidade>();
 		try {
 			Statement sentenca = bd.createStatement();
@@ -54,7 +59,7 @@ public class CidadeDao implements Dao<Cidade>{
 			}
 			resultado.close();
 			sentenca.close();
-			bd.close();			
+						
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -64,7 +69,7 @@ public class CidadeDao implements Dao<Cidade>{
 
 	@Override
 	public void save(Cidade cidade) {
-		Connection bd = FactoryConnection.getConnection();
+		
 		String sql = "INSERT INTO cidade (descricao, uf) VALUES (?, ?)";
 		try {
 			PreparedStatement sentenca = bd.prepareStatement(sql);
@@ -72,7 +77,7 @@ public class CidadeDao implements Dao<Cidade>{
 			sentenca.setString(2, cidade.getUf());
 			sentenca.execute();
 			sentenca.close();
-			bd.close();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -82,7 +87,7 @@ public class CidadeDao implements Dao<Cidade>{
 
 	@Override
 	public void update(Cidade cidade) {
-		Connection bd = FactoryConnection.getConnection();
+		
 		String sql = "UPDATE cidade SET descricao=?, uf=? WHERE id=?";
 		try {
 			PreparedStatement sentenca = bd.prepareStatement(sql);
@@ -91,7 +96,7 @@ public class CidadeDao implements Dao<Cidade>{
 			sentenca.setInt(3, cidade.getId());
 			sentenca.execute();
 			sentenca.close();
-			bd.close();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -102,14 +107,14 @@ public class CidadeDao implements Dao<Cidade>{
 	@Override
 	public void delete(Cidade cidade) {
 		int id = cidade.getId();
-		Connection bd = FactoryConnection.getConnection();
+		
 		String sql = "DELETE FROM cidade WHERE id=?";
 		try {
 			PreparedStatement sentenca = bd.prepareStatement(sql);
 			sentenca.setInt(1, id);
 			sentenca.execute();
 			sentenca.close();
-			bd.close();
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,5 +1,6 @@
 package lpIIIjavaweb.logicas;
 
+import java.sql.Connection;
 import java.time.LocalDate;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,10 +15,11 @@ public class SalvarPizza implements Logica {
 
 	@Override
 	public String executa(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Connection conn = (Connection) request.getAttribute("conn");
 		int id = Integer.parseInt(request.getParameter("id"));
 		String nome = request.getParameter("nome");		
 		int categoria_id = Integer.parseInt(request.getParameter("categoria_id"));
-		CategoriaDao categoriaDao = new CategoriaDao();
+		CategoriaDao categoriaDao = new CategoriaDao(conn);
 		Categoria categoria = categoriaDao.get(categoria_id);
 		
 		LocalDate data = null;
@@ -28,7 +30,7 @@ public class SalvarPizza implements Logica {
 		System.out.println("data: "+data);	
 		
 		Pizza pizza = new Pizza(id, nome, categoria, data);
-		PizzaDao dao = new PizzaDao();
+		PizzaDao dao = new PizzaDao(conn);
 		if (id==0) {
 		  dao.save(pizza);
 		} else {

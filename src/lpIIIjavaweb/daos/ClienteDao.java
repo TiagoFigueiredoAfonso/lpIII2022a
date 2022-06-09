@@ -17,9 +17,17 @@ import lpIIIjavaweb.models.Cliente;
 
 
 public class ClienteDao implements Dao<Cliente>{
+	private Connection bd = null;
+	
+	
+	public ClienteDao(Connection bd) {
+		super();
+		this.bd = bd;
+	}
+
 	@Override
 	public Cliente get(int id) {
-		Connection bd = FactoryConnection.getConnection();
+		
 		String sql = "SELECT cliente.*, cidade.descricao as cidade_descricao, cidade.uf as cidade_uf FROM cliente LEFT JOIN cidade ON cidade.id = cliente.cidade_id WHERE cliente.id=?";
 		Cliente cliente = null;
 		try {
@@ -47,7 +55,7 @@ public class ClienteDao implements Dao<Cliente>{
 			}
 			resultado.close();			
 			sentenca.close();
-			bd.close();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,7 +65,7 @@ public class ClienteDao implements Dao<Cliente>{
 
 	@Override
 	public List<Cliente> getAll() {
-		Connection bd = FactoryConnection.getConnection();
+		
 		List<Cliente> lista = new ArrayList<Cliente>();
 		try {
 			Statement sentenca = bd.createStatement();
@@ -85,7 +93,7 @@ public class ClienteDao implements Dao<Cliente>{
 			}
 			resultado.close();
 			sentenca.close();
-			bd.close();			
+					
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -95,7 +103,7 @@ public class ClienteDao implements Dao<Cliente>{
 
 	@Override
 	public void save(Cliente cliente) {
-		Connection bd = FactoryConnection.getConnection();
+		
 		String sql = "INSERT INTO cliente (nome, email, fone, endereco, cidade_id, data_nascimento) VALUES (?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement sentenca = bd.prepareStatement(sql);
@@ -108,7 +116,7 @@ public class ClienteDao implements Dao<Cliente>{
 					cliente.getData_nascimento()));
 			sentenca.execute();
 			sentenca.close();
-			bd.close();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -117,7 +125,7 @@ public class ClienteDao implements Dao<Cliente>{
 
 	@Override
 	public void update(Cliente cliente) {
-		Connection bd = FactoryConnection.getConnection();
+		
 		String sql = "UPDATE cliente SET nome=?, email=?, fone=?, endereco=?, cidade_id=?, data_nascimento=? WHERE id=?";
 		try {
 			PreparedStatement sentenca = bd.prepareStatement(sql);
@@ -131,7 +139,7 @@ public class ClienteDao implements Dao<Cliente>{
 			sentenca.setInt(7, cliente.getId());
 			sentenca.execute();
 			sentenca.close();
-			bd.close();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -142,14 +150,14 @@ public class ClienteDao implements Dao<Cliente>{
 	@Override
 	public void delete(Cliente cliente) {
 		int id = cliente.getId();
-		Connection bd = FactoryConnection.getConnection();
+		
 		String sql = "DELETE FROM cliente WHERE id=?";
 		try {
 			PreparedStatement sentenca = bd.prepareStatement(sql);
 			sentenca.setInt(1, id);
 			sentenca.execute();
 			sentenca.close();
-			bd.close();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

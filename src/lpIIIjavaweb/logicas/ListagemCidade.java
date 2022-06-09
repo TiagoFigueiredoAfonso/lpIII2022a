@@ -1,5 +1,6 @@
 package lpIIIjavaweb.logicas;
 
+import java.sql.Connection;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -13,7 +14,8 @@ public class ListagemCidade implements Logica {
 
 	@Override
 	public String executa(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		CidadeDao dao = new CidadeDao();
+		Connection conn = (Connection) request.getAttribute("conn");
+		CidadeDao dao = new CidadeDao(conn);
 		List<Cidade> cidades = dao.getAll();
 		request.setAttribute("cidades", cidades);
 		return "/WEB-INF/ListagemCidade.jsp";

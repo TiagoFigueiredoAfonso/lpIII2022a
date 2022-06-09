@@ -1,5 +1,6 @@
 package lpIIIjavaweb.logicas;
 
+import java.sql.Connection;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -13,7 +14,8 @@ public class ListagemCategoria implements Logica {
 
 	@Override
 	public String executa(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		CategoriaDao dao = new CategoriaDao();
+		Connection conn = (Connection) request.getAttribute("conn");
+		CategoriaDao dao = new CategoriaDao(conn);
 		List<Categoria> categorias = dao.getAll();
 		request.setAttribute("categorias", categorias);
 		return "/WEB-INF/ListagemCategoria.jsp";

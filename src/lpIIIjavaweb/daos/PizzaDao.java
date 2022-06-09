@@ -14,10 +14,16 @@ import lpIIIjavaweb.models.Categoria;
 import lpIIIjavaweb.models.Pizza;
 
 public class PizzaDao implements Dao<Pizza>{
+	private Connection bd = null;
+	
+	public PizzaDao(Connection bd) {
+		super();
+		this.bd = bd;
+	}
 
 	@Override
 	public Pizza get(int id) {
-		Connection bd = FactoryConnection.getConnection();
+		
 		String sql = "SELECT pizza.*, categoria.nome as categoria_nome FROM pizza LEFT JOIN categoria ON categoria.id = pizza.categoria_id WHERE pizza.id=?";
 		
 		Pizza pizza = null;
@@ -40,7 +46,7 @@ public class PizzaDao implements Dao<Pizza>{
 			}
 			resultado.close();			
 			sentenca.close();
-			bd.close();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -50,7 +56,7 @@ public class PizzaDao implements Dao<Pizza>{
 
 	@Override
 	public List<Pizza> getAll() {
-		Connection bd = FactoryConnection.getConnection();
+		
 		List<Pizza> lista = new ArrayList<Pizza>();
 		try {
 			Statement sentenca = bd.createStatement();
@@ -76,7 +82,7 @@ public class PizzaDao implements Dao<Pizza>{
 			}
 			resultado.close();
 			sentenca.close();
-			bd.close();			
+					
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -86,7 +92,7 @@ public class PizzaDao implements Dao<Pizza>{
 
 	@Override
 	public void save(Pizza pizza) {
-		Connection bd = FactoryConnection.getConnection();
+		
 		String sql = "INSERT INTO pizza (nome, categoria_id, data) VALUES (?, ?, ?)";
 		try {
 			PreparedStatement sentenca = bd.prepareStatement(sql);
@@ -96,7 +102,7 @@ public class PizzaDao implements Dao<Pizza>{
 					pizza.getData()));
 			sentenca.execute();
 			sentenca.close();
-			bd.close();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -106,7 +112,7 @@ public class PizzaDao implements Dao<Pizza>{
 
 	@Override
 	public void update(Pizza pizza) {
-		Connection bd = FactoryConnection.getConnection();
+		
 		String sql = "UPDATE pizza SET nome=?, categoria_id=?, data=? WHERE id=?";
 		try {
 			PreparedStatement sentenca = bd.prepareStatement(sql);
@@ -117,7 +123,7 @@ public class PizzaDao implements Dao<Pizza>{
 			sentenca.setInt(4, pizza.getId());
 			sentenca.execute();
 			sentenca.close();
-			bd.close();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -128,14 +134,14 @@ public class PizzaDao implements Dao<Pizza>{
 	@Override
 	public void delete(Pizza pizza) {
 		int id = pizza.getId();
-		Connection bd = FactoryConnection.getConnection();
+		
 		String sql = "DELETE FROM pizza WHERE id=?";
 		try {
 			PreparedStatement sentenca = bd.prepareStatement(sql);
 			sentenca.setInt(1, id);
 			sentenca.execute();
 			sentenca.close();
-			bd.close();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

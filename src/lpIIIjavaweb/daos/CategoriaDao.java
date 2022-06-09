@@ -13,10 +13,15 @@ import lpIIIjavaweb.models.Pizza;
 
 
 public class CategoriaDao implements Dao<Categoria>{
+	private Connection bd = null;	
+
+	public CategoriaDao(Connection bd) {
+		super();
+		this.bd = bd;
+	}
 
 	@Override
-	public Categoria get(int id) {
-		Connection bd = FactoryConnection.getConnection();
+	public Categoria get(int id) {		
 		String sql = "SELECT * FROM categoria WHERE id=?";
 		Categoria categoria = null;
 		try {
@@ -29,7 +34,7 @@ public class CategoriaDao implements Dao<Categoria>{
 			}
 			resultado.close();			
 			sentenca.close();
-			bd.close();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -38,8 +43,7 @@ public class CategoriaDao implements Dao<Categoria>{
 	}
 
 	@Override
-	public List<Categoria> getAll() {
-		Connection bd = FactoryConnection.getConnection();
+	public List<Categoria> getAll() {		
 		List<Categoria> lista = new ArrayList<Categoria>();
 		try {
 			Statement sentenca = bd.createStatement();
@@ -54,7 +58,7 @@ public class CategoriaDao implements Dao<Categoria>{
 			}
 			resultado.close();
 			sentenca.close();
-			bd.close();			
+						
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,15 +67,14 @@ public class CategoriaDao implements Dao<Categoria>{
 	}
 
 	@Override
-	public void save(Categoria categoria) {
-		Connection bd = FactoryConnection.getConnection();
+	public void save(Categoria categoria) {		
 		String sql = "INSERT INTO categoria (nome) VALUES (?)";
 		try {
 			PreparedStatement sentenca = bd.prepareStatement(sql);
 			sentenca.setString(1, categoria.getNome());	
 			sentenca.execute();
 			sentenca.close();
-			bd.close();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -80,8 +83,7 @@ public class CategoriaDao implements Dao<Categoria>{
 	}
 
 	@Override
-	public void update(Categoria categoria) {
-		Connection bd = FactoryConnection.getConnection();
+	public void update(Categoria categoria) {		
 		String sql = "UPDATE categoria SET nome=? WHERE id=?";
 		try {
 			PreparedStatement sentenca = bd.prepareStatement(sql);
@@ -89,7 +91,7 @@ public class CategoriaDao implements Dao<Categoria>{
 			sentenca.setInt(2, categoria.getId());
 			sentenca.execute();
 			sentenca.close();
-			bd.close();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -99,15 +101,13 @@ public class CategoriaDao implements Dao<Categoria>{
 
 	@Override
 	public void delete(Categoria categoria) {
-		int id = categoria.getId();
-		Connection bd = FactoryConnection.getConnection();
+		int id = categoria.getId();		
 		String sql = "DELETE FROM categoria WHERE id=?";
 		try {
 			PreparedStatement sentenca = bd.prepareStatement(sql);
 			sentenca.setInt(1, id);
 			sentenca.execute();
-			sentenca.close();
-			bd.close();
+			sentenca.close();			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
