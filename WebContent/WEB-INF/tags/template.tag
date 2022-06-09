@@ -43,13 +43,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
-      <c:if test = "${!empty usuarioLogado}">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="sistema?logica=ListagemCliente">Cliente</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="sistema?logica=ListagemCidade">Cidade</a>
-        </li>
+      <c:if test = "${!empty usuarioLogado}">       
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="sistema?logica=ListagemPizza">Pizza</a>
         </li>

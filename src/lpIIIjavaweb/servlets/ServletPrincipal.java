@@ -11,11 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import lpIIIjavaweb.daos.CidadeDao;
+
 import lpIIIjavaweb.daos.CategoriaDao;
 import lpIIIjavaweb.daos.PizzaDao;
 import lpIIIjavaweb.logicas.Logica;
-import lpIIIjavaweb.models.Cidade;
 import lpIIIjavaweb.models.Pizza;
 import lpIIIjavaweb.models.Categoria;
 
