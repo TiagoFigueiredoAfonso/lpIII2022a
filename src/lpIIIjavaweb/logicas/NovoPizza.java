@@ -16,7 +16,7 @@ public class NovoPizza implements Logica {
 	@Override
 	public String executa(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Connection conn = (Connection) request.getAttribute("conn");
-		Pizza pizza= new Pizza(0, "", null, null);
+		Pizza pizza= new Pizza(0, "", null, null, "");
 		request.setAttribute("pizza", pizza);
 		CategoriaDao categoriaDao = new CategoriaDao(conn);
 		List<Categoria> categorias = categoriaDao.getAll();

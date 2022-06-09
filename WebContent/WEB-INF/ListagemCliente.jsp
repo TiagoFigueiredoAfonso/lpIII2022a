@@ -10,6 +10,7 @@
 		  <thead>
 		    <tr>
 		      <th scope="col">#</th>
+		      <th scope="col">Imagem</th>
 		      <th scope="col">Nome</th>
 		      <th scope="col">Email</th>
 		      <th scope="col">Fone</th>
@@ -23,11 +24,19 @@
 			<c:forEach items="${clientes}" var="cliente">
 			    <tr>
 			      <th scope="row">${cliente.id}</th>
+			      <td>
+			  <c:if test = "${!empty cliente.foto}">
+			      <img src="imagens/${cliente.foto}" style="width: 60px">
+			  </c:if>  
+		      
+		      </td>
 			      <td>${cliente.nome}</td>
 			      <td>${cliente.email}</td>
 			      <td>${cliente.fone}</td>
 			      <td>${cliente.endereco}</td>
-			      <td>${cliente.data_nascimento}</td>
+			      <td>
+			      <tags:localDate date="${cliente.data_nascimento}" />
+			      </td>
 			      <td>${cliente.cidade.descricao}-${cliente.cidade.uf}</td>
 			      <td>
 			      	<a href="sistema?logica=EditarCliente&id=${cliente.id}" class="btn btn-primary">+</a>

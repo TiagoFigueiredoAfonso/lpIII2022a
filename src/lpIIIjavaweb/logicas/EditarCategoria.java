@@ -2,22 +2,24 @@ package lpIIIjavaweb.logicas;
 
 import java.sql.Connection;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import lpIIIjavaweb.daos.ClienteDao;
-import lpIIIjavaweb.models.Cliente;
+import lpIIIjavaweb.daos.CategoriaDao;
+import lpIIIjavaweb.models.Categoria;
 
-public class ExcluirCliente implements Logica {
+public class EditarCategoria implements Logica {
 
 	@Override
 	public String executa(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// TODO Auto-generated method stub
 		int id = Integer.parseInt(request.getParameter("id"));
 		Connection conn = (Connection) request.getAttribute("conn");
-		Cliente cliente = new Cliente(id, "", "", "", "", null, null, "");
-		ClienteDao dao = new ClienteDao(conn);
-		dao.delete(cliente);
-		return "sistema?logica=ListagemCliente";
+		CategoriaDao dao = new CategoriaDao(conn);
+		Categoria categoria = dao.get(id);
+		request.setAttribute("categoria", categoria);
+		return "/WEB-INF/FormularioCategoria.jsp";
 	}
 
 }

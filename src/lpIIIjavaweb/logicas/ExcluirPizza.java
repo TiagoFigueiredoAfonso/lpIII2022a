@@ -14,7 +14,7 @@ public class ExcluirPizza implements Logica {
 	public String executa(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int id = Integer.parseInt(request.getParameter("id"));
 		Connection conn = (Connection) request.getAttribute("conn");
-		Pizza pizza = new Pizza(id, "", null, null);
+		Pizza pizza = new Pizza(id, "", null, null, "");
 		PizzaDao dao = new PizzaDao(conn);
 		dao.delete(pizza);
 		return "sistema?logica=ListagemPizza";

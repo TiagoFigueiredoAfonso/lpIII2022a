@@ -3,9 +3,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <tags:template>
-
+<c:if test = "${!empty cliente.foto}">
+      <img src="imagens/${cliente.foto}" style="width: 200px">
+</c:if>
 <h1 class="pt-5">Formulário de Pizza</h1>
-	<form action="sistema?logica=SalvarPizza" method="post">
+	<form action="sistema?logica=SalvarPizza" method="post" enctype="multipart/form-data">
+	<input type="hidden" class="form-control" id="foto" name="foto" value="${pizza.foto}">
+	   <div class="mb-3">
+	    <label for="id" class="form-label">Foto</label>
+	    <input type="file" class="form-control" id="arquivo" name="arquivo">
+	  </div>
 	  <div class="mb-3">
 	    <label for="id" class="form-label">Id</label>
 	    <input readonly type="text" class="form-control" id="id" name="id" value="${pizza.id}">

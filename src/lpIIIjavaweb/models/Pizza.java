@@ -7,14 +7,29 @@ public class Pizza {
 	private String nome;
 	private Categoria categoria;
 	private LocalDate data;
+	private String foto;
 	
-	public Pizza(int id, String nome, Categoria categoria, LocalDate data) {
+	public Pizza(int id, String nome, Categoria categoria, LocalDate data, String foto) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.categoria = categoria;
 		this.data = data;
+		this.foto = foto;
 	}
+	
+
+	public String getFoto() {
+		return foto;
+	}
+
+
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+
 
 	public LocalDate getData() {
 		return data;

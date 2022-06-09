@@ -10,8 +10,9 @@ public class Cliente {
   private String endereco;
   private Cidade cidade;
   private LocalDate data_nascimento;
+  private String foto;
 
-  public Cliente(int id, String nome, String email, String fone, String endereco, Cidade cidade, LocalDate data_nascimento) {
+  public Cliente(int id, String nome, String email, String fone, String endereco, Cidade cidade, LocalDate data_nascimento, String foto) {
 	super();
 	this.id = id;
 	this.nome = nome;
@@ -20,11 +21,24 @@ public class Cliente {
 	this.endereco = endereco;
 	this.cidade = cidade;
 	this.data_nascimento = data_nascimento;
+	this.foto = foto;
 	
   }
-  public LocalDate getData_nascimento() {
-		return data_nascimento;
+  
+  
+	  public String getFoto() {
+		return foto;
 	}
+	
+	
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+	
+	
+	public LocalDate getData_nascimento() {
+			return data_nascimento;
+		}
 
 
 	public void setData_nascimento(LocalDate data_nascimento) {

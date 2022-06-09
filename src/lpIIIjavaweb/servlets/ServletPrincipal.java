@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +19,9 @@ import lpIIIjavaweb.models.Cidade;
 import lpIIIjavaweb.models.Pizza;
 import lpIIIjavaweb.models.Categoria;
 
-/**
- * Servlet implementation class ServletPrincipal
- */
+@MultipartConfig(fileSizeThreshold = 1024 * 1024,
+maxFileSize = 1024 * 1024 * 5, 
+maxRequestSize = 1024 * 1024 * 5 * 5)
 @WebServlet("/sistema")
 public class ServletPrincipal extends HttpServlet {
 	private static final long serialVersionUID = 1L;

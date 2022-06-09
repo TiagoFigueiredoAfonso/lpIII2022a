@@ -44,13 +44,14 @@ public class ClienteDao implements Dao<Cliente>{
 				String cidade_descricao = resultado.getString("cidade_descricao");
 				String cidade_uf = resultado.getString("cidade_uf");
 				Cidade cidade = new Cidade(cidade_id, cidade_descricao, cidade_uf);
+				String foto = resultado.getString("foto");
 				LocalDate data_nascimento =null;
 				if (resultado.getDate("data_nascimento")!=null) {
 					data_nascimento = LocalDate.parse(
 							resultado.getDate("data_nascimento").toString());
 				}
 				
-				cliente = new Cliente(id, nome, email, fone, endereco, cidade, data_nascimento);
+				cliente = new Cliente(id, nome, email, fone, endereco, cidade, data_nascimento, foto);
 				
 			}
 			resultado.close();			
@@ -77,6 +78,7 @@ public class ClienteDao implements Dao<Cliente>{
 				String email = resultado.getString("email");
 				String fone = resultado.getString("fone");
 				String endereco = resultado.getString("endereco");
+				String foto = resultado.getString("foto");
 				
 				int cidade_id = resultado.getInt("cidade_id");
 				String cidade_descricao = resultado.getString("cidade_descricao");
@@ -88,7 +90,7 @@ public class ClienteDao implements Dao<Cliente>{
   				  data_nascimento = LocalDate.parse(
 						resultado.getDate("data_nascimento").toString());
 				}
-				Cliente cliente = new Cliente(id, nome, email, fone, endereco, cidade, data_nascimento);
+				Cliente cliente = new Cliente(id, nome, email, fone, endereco, cidade, data_nascimento, foto);
 				lista.add(cliente);
 			}
 			resultado.close();
@@ -104,7 +106,7 @@ public class ClienteDao implements Dao<Cliente>{
 	@Override
 	public void save(Cliente cliente) {
 		
-		String sql = "INSERT INTO cliente (nome, email, fone, endereco, cidade_id, data_nascimento) VALUES (?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO cliente (nome, email, fone, endereco, cidade_id, data_nascimento, foto) VALUES (?, ?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement sentenca = bd.prepareStatement(sql);
 			sentenca.setString(1, cliente.getNome());
@@ -114,6 +116,7 @@ public class ClienteDao implements Dao<Cliente>{
 			sentenca.setInt(5,  cliente.getCidade().getId());
 			sentenca.setDate(6, java.sql.Date.valueOf(
 					cliente.getData_nascimento()));
+			sentenca.setString(7, cliente.getFoto());
 			sentenca.execute();
 			sentenca.close();
 			
@@ -126,7 +129,7 @@ public class ClienteDao implements Dao<Cliente>{
 	@Override
 	public void update(Cliente cliente) {
 		
-		String sql = "UPDATE cliente SET nome=?, email=?, fone=?, endereco=?, cidade_id=?, data_nascimento=? WHERE id=?";
+		String sql = "UPDATE cliente SET nome=?, email=?, fone=?, endereco=?, cidade_id=?, data_nascimento=?, foto=? WHERE id=?";
 		try {
 			PreparedStatement sentenca = bd.prepareStatement(sql);
 			sentenca.setString(1, cliente.getNome());
@@ -136,7 +139,8 @@ public class ClienteDao implements Dao<Cliente>{
 			sentenca.setInt(5, cliente.getCidade().getId());
 			sentenca.setDate(6, java.sql.Date.valueOf(
 					cliente.getData_nascimento()));
-			sentenca.setInt(7, cliente.getId());
+			sentenca.setString(7, cliente.getFoto());
+			sentenca.setInt(8, cliente.getId());
 			sentenca.execute();
 			sentenca.close();
 			

@@ -16,7 +16,7 @@ public class NovoCliente implements Logica {
 	@Override
 	public String executa(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Connection conn = (Connection) request.getAttribute("conn");
-		Cliente cliente = new Cliente(0, "", "", "", "", null, null);
+		Cliente cliente = new Cliente(0, "", "", "", "", null, null, "");
 		request.setAttribute("cliente", cliente);
 		CidadeDao cidadeDao = new CidadeDao(conn);
 		List<Cidade> cidades = cidadeDao.getAll();

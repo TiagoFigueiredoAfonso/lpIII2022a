@@ -10,6 +10,7 @@
 		  <thead>
 		    <tr>
 		      <th scope="col">#</th>
+		      <th scope="col">Imagem</th>
 		      <th scope="col">Nome</th>	
 		      <th scope="col">Categoria</th>
 		      <th scope="col">Data</th>	
@@ -21,10 +22,18 @@
 			<c:forEach items="${pizzas}" var="pizza">
 			    <tr>
 			      <th scope="row">${pizza.id}</th>
+			      <td>
+			  <c:if test = "${!empty pizza.foto}">
+			      <img src="imagens/${pizza.foto}" style="width: 60px">
+			  </c:if>  
+		      
+		      </td>
 			      <td>${pizza.nome}</td>
 			      		      
 			      <td>${pizza.categoria.nome}</td>
-			      <td>${pizza.data}</td>
+			      <td>
+			      <tags:localDate date="${pizza.data}" />
+			      </td>
 			      <td>
 			      	<a href="sistema?logica=EditarPizza&id=${pizza.id}" class="btn btn-primary">+</a>
 			      	<a href="sistema?logica=ExcluirPizza&id=${pizza.id}" class="btn btn-danger">-</a>
