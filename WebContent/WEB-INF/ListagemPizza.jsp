@@ -4,8 +4,8 @@
     pageEncoding="UTF-8"%>    
 
 <tags:template>
-<h1 class="pt-5">Listagem de Pizzas</h1>
-	    <a href="sistema?logica=NovoPizza" class="btn btn-primary">Novo</a>
+<h1 style="color:green;">Listagem de Pizzas</h1>
+	    
 		<table class="table table-bordered table-striped table-hover">
 		  <thead>
 		    <tr>
@@ -28,10 +28,10 @@
 			  </c:if>  
 		      
 		      </td>
-			      <td>${pizza.nome}</td>
+			      <td style="color:red">${pizza.nome}</td>
 			      		      
-			      <td>${pizza.categoria.nome}</td>
-			      <td>
+			      <td style="color:red">${pizza.categoria.nome}</td>
+			      <td style="color:red">
 			      <tags:localDate date="${pizza.data}" />
 			      </td>
 			      <td>
@@ -41,5 +41,6 @@
 			    </tr>
 			</c:forEach>
 		  </tbody>
-		</table>  
+		</table> 
+		<a href="sistema?logica=NovoPizza" class="btn btn-outline-primary">Novo</a> 
 </tags:template>  

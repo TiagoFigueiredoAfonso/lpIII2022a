@@ -4,8 +4,8 @@
     pageEncoding="UTF-8"%>    
 
 <tags:template>
-<h1 class="pt-5">Listagem de Categorias</h1>
-		<a href="sistema?logica=NovoCategoria" class="btn btn-primary">Novo</a>
+<h1 style="color:green;">Listagem de Categorias</h1>
+		
 		<table class="table table-bordered table-striped table-hover">
 		  <thead>
 		    <tr>
@@ -18,7 +18,7 @@
 			<c:forEach items="${categorias}" var="categoria">
 			    <tr>
 			      <th scope="row">${categoria.id}</th>
-			      <td>${categoria.nome}</td>     
+			      <td style="color:red">${categoria.nome}</td>     
 			      
 			      <td>			      
 			      	<a href="sistema?logica=EditarCategoria&id=${categoria.id}" class="btn btn-primary">+</a>
@@ -28,5 +28,5 @@
 			</c:forEach>
 		  </tbody>
 		</table>   
-		
+		<a href="sistema?logica=NovoCategoria" class="btn btn-outline-primary">Novo</a>
 </tags:template>

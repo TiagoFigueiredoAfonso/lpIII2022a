@@ -6,7 +6,7 @@
 <c:if test = "${!empty cliente.foto}">
       <img src="imagens/${cliente.foto}" style="width: 200px">
 </c:if>
-<h1 class="pt-5">Formulário de Pizza</h1>
+<h1 style="color:green">Formulário de Pizza</h1>
 	<form action="sistema?logica=SalvarPizza" method="post" enctype="multipart/form-data">
 	<input type="hidden" class="form-control" id="foto" name="foto" value="${pizza.foto}">
 	   <div class="mb-3">
@@ -34,7 +34,7 @@
 	    <label for="data" class="form-label">Data</label>
 	    <input type="date" class="form-control" id="data" name="data" value="${pizza.data}" >
 	  </div>	 
-	  <button type="submit" class="btn btn-primary">Salvar</button>
+	  <button type="submit" class="btn btn-outline-primary">Salvar</button>
 	</form>
 		    
  </tags:template> 

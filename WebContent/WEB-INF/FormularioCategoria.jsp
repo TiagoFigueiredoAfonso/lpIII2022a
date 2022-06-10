@@ -4,7 +4,7 @@
     pageEncoding="UTF-8"%>    
     
 <tags:template>
-<h1>Formulário de Categoria</h1>
+<h1 style="color:green">Formulário de Categoria</h1>
 	<form action="sistema?logica=SalvarCategoria" method="post">
 	  <div class="mb-3">
 	    <label for="id" class="form-label">Id</label>
@@ -15,6 +15,6 @@
 	    <input type="text" class="form-control" id="nome" name="nome" value="${categoria.nome}">
 	  </div>
 	  
-	  <button type="submit" class="btn btn-primary">Salvar</button>
+	  <button type="submit" class="btn btn-outline-primary">Salvar</button>
 	</form>	    
 </tags:template>	

@@ -5,6 +5,11 @@
     pageEncoding="UTF-8"%>    
 
 <tags:template>
-    <h1>Java Web</h1>
-    <p>Este aplicativo foi criado na disciplina de Linguagem de Programação III no 1o. Semestre de 2022.</p>
+
+<h1 style="color:green">Pizzaria</h1>
+<div class="container align-items-center mx-auto text-center">
+<img style="box-shadow: 3px 3px 15px grey;" src="https://media-cdn.tripadvisor.com/media/photo-s/15/d7/d2/71/2-4-queijos.jpg">
+<p style="color:red;text-shadow: 1px 1px grey;font-size:20px">Venha conhecer nossos sabores!</p>
+</div>    
+    
 </tags:template>

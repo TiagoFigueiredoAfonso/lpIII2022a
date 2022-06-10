@@ -5,7 +5,7 @@
     pageEncoding="UTF-8"%>    
 
 <tags:template>
-    <h1>Login</h1>
+    <h1 style="color:green">Login</h1>
 	<form action="sistema?logica=Logar" method="post">
 	  <div class="mb-3">
 	    <label for="email" class="form-label">E-mail</label>
